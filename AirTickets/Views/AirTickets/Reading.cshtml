@@ -1,0 +1,305 @@
+﻿@{
+    ViewData["Title"] = "Чтение";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+
+    <!-- Чтение списка билетов -->
+    <hr> 
+    <div class="col-12">
+        <h4>Чтение списка билетов</h4>        
+        <button type="button" onclick="ReadOne()" class="btn btn-secondary mt-4">Читать</button>
+    </div>
+    <div class="col-12 mt-4" style="overflow-x: scroll; width: 100%;">
+        <table id="myTable1" class="display">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Пункт отправления</th>
+                    <th>Пункт назначения</th>
+                    <th>Номер заказа</th>
+                    <th>Поставщик услуг</th>
+                    <th>Дата вылета</th>
+                    <th>Дата прилета</th>
+                    <th>Дата оформления услуги</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Чтение списка пассажиров по билету -->
+     <hr class="mt-4">   
+     <div class="col-12">
+         <h4>Чтение списка пассажиров по билету</h4>
+        <div class="input-group mb-3 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Номер заказа</span>
+          </div>
+          <input type="text" id="inputTwo" class="form-control" aria-label="Номер заказа" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button type="button" onclick="ReadTwo()" class="btn btn-secondary">Читать</button>
+    </div>
+    <div class="col-12 mt-4" style="overflow-x: scroll; width: 100%;">
+        <table id="myTable2" class="display">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Чтение списка документов по пассажиру -->
+    <hr class="mt-4"> 
+    <div class="col-12">
+        <h4>Чтение списка документов по пассажиру</h4>
+        <div class="input-group mb-1 mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup1">Фамилия</span>
+          </div>
+          <input type="text" id="inputSurname" class="form-control" aria-label="Фамилия" aria-describedby="inputGroup1">
+        </div>
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup2">Имя</span>
+          </div>
+          <input type="text" id="inputName" class="form-control" aria-label="Имя" aria-describedby="inputGroup2">
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup3">Отчество</span>
+          </div>
+          <input type="text" id="inputPatronymic" class="form-control" aria-label="Отчество" aria-describedby="inputGroup3">
+        </div>
+        <button type="button" onclick="ReadThree()" class="btn btn-secondary mt-4">Читать</button>
+    </div>
+    <div class="col-12 mt-4" style="overflow-x: scroll; width: 100%;">
+        <table id="myTable3" class="display">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Тип документа</th>
+                    <th>Номер документа</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Чтение полной информации по билету -->
+    <hr class="mt-4"> 
+    <div class="col-12">
+        <h4>Чтение полной информации по билету, включая информацию о билете, пассажирах и документе сразу</label>
+        <div class="input-group mt-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Номер заказа</span>
+          </div>
+          <input type="text" id="inputFour" class="form-control" aria-label="Номер заказа" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button type="button" onclick="ReadFour()" class="btn btn-secondary mt-4">Читать</button>
+    </div>
+    <div class="col-12 mt-4" style="overflow-x: scroll; width: 100%;">
+        <table id="myTable4" class="display">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Пункт отправления</th>
+                    <th>Пункт назначения</th>
+                    <th>Номер заказа</th>
+                    <th>Поставщик услуг</th>
+                    <th>Дата вылета</th>
+                    <th>Дата прилета</th>
+                    <th>Дата оформления услуги</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+        <table id="myTable5" class="display mt-4">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Тип документа</th>
+                    <th>Номер документа</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+      $('#myTable1').DataTable();
+      $('#myTable2').DataTable();
+      $('#myTable3').DataTable();
+      $('#myTable4').DataTable();
+      $('#myTable5').DataTable();
+    });
+
+    function ReadOne() {
+
+        var table = $('#myTable1').DataTable();
+        @* Удалить все строки таблицы *@
+        table.rows().remove().draw();
+
+        $.ajax({
+            url: "/AirTickets/GetAirTickets",
+            type: "POST",
+            success: function(data) {
+                if(data != 0)
+                {
+                    for (var j = 0; j < data.length; j++)
+                    {
+                        var cell_0 = j + 1;                        
+                        var cell_1 = data[j].departurePoint;
+                        var cell_2 = data[j].destination;
+                        var cell_3 = data[j].orderNumber;
+                        var cell_4 = data[j].serviceProvider;                        
+                        var cell_5 = data[j].departureDate; 
+                        var cell_6 = data[j].arrivalDate;                        
+                        var cell_7 = data[j].serviceDate; 
+
+                        table.row.add([cell_0, cell_1, cell_2, cell_3, cell_4, cell_5, cell_6, cell_7]).draw(false);
+                    }
+                }                
+            }
+        });
+    };
+
+    function ReadTwo() {
+
+        var table = $('#myTable2').DataTable();
+        @* Удалить все строки таблицы *@
+        table.rows().remove().draw();
+
+        var input = document.getElementById("inputTwo").value.trim();
+        if (input.length !== 0) {
+        
+            $.ajax({
+                url: "/AirTickets/GetPassenger",
+                type: "POST",                
+                dataType: 'json',            
+                data: {
+                    orderNumber: input                
+                },
+                success: function(data) {
+                    if(data != 0)
+                    {
+                        for (var j = 0; j < data.length; j++)
+                        {
+                            var cell_0 = j + 1;                        
+                            var cell_1 = data[j].lastName;
+                            var cell_2 = data[j].firstName;
+                            var cell_3 = data[j].patronymic;
+                        
+                            table.row.add([cell_0, cell_1, cell_2, cell_3]).draw(false);
+                        }
+                    }                
+                }
+            });
+        }
+    };
+
+    function ReadThree() {
+
+        var table = $('#myTable3').DataTable();
+        @* Удалить все строки таблицы *@
+        table.rows().remove().draw();
+
+        var surname = document.getElementById("inputSurname").value.trim();
+        var name = document.getElementById("inputName").value.trim();
+        var patronymic = document.getElementById("inputPatronymic").value.trim();
+        if (surname.length !== 0 && name.length !== 0 && patronymic.length !== 0) { 
+        
+            $.ajax({
+                url: "/AirTickets/GetDocument",
+                type: "POST",                
+                dataType: 'json',            
+                data: {
+                    lastName: surname,
+                    firstName: name,
+                    patronymic: patronymic
+                },
+                success: function(data) {
+                    if(data != 0)
+                    {
+                        for (var j = 0; j < data.length; j++)
+                        {
+                            var cell_0 = j + 1;                        
+                            var cell_1 = data[j].documentType;
+                            var cell_2 = data[j].documentNumber;
+                           
+                            table.row.add([cell_0, cell_1, cell_2]).draw(false);
+                        }
+                    }                
+                }
+            });
+        }
+    };
+
+    function ReadFour() {
+        var table1 = $('#myTable4').DataTable();
+        var table2 = $('#myTable5').DataTable();
+        @* Удалить все строки таблицы *@
+        table1.rows().remove().draw();
+        table2.rows().remove().draw();
+
+        var input = document.getElementById("inputFour").value.trim();
+        if (input.length !== 0) { 
+        
+            $.ajax({
+                url: "/AirTickets/GetAllData",
+                type: "POST",
+                dataType: 'json',            
+                data: {
+                    orderNumber: input                
+                },
+                success: function(data) {
+                    if(data.airTicket != null)
+                    {
+                        var cell_0 = 1;                        
+                        var cell_1 = data.airTicket.departurePoint;
+                        var cell_2 = data.airTicket.destination;
+                        var cell_3 = data.airTicket.orderNumber;
+                        var cell_4 = data.airTicket.serviceProvider;                        
+                        var cell_5 = data.airTicket.departureDate; 
+                        var cell_6 = data.airTicket.arrivalDate;                        
+                        var cell_7 = data.airTicket.serviceDate; 
+
+                        table1.row.add([cell_0, cell_1, cell_2, cell_3, cell_4, cell_5, cell_6, cell_7]).draw(false);
+                        for (var j = 0; j < data.passengers.length; j++)
+                        {
+                            var cell_0 = j + 1;                        
+                            var cell_1 = data.passengers[j].lastName;
+                            var cell_2 = data.passengers[j].firstName;
+                            var cell_3 = data.passengers[j].patronymic;
+                            var cell_4 = "";
+                            var cell_5 = "";
+                            if (data.documents.length > j) {
+                                cell_4 = data.documents[j].documentType;
+                                cell_5 = data.documents[j].documentNumber;
+                            }
+
+                            table2.row.add([cell_0, cell_1, cell_2, cell_3, cell_4, cell_5]).draw(false);
+                        }
+                    }                
+                }
+            });
+        }
+    };
+</script>
